@@ -29,8 +29,11 @@ instead of var.
 4> Difference
 
 Keyword         Reassign     scope        Recommended
+----------------------------------------------------------------
 let              yes         Bloack        ✅
+----------------------------------------------------------------
 const            No          Block         ✅
+----------------------------------------------------------------
 var              yes         Function      X Usually avoid
 
 5> React Connection 

@@ -192,7 +192,7 @@ Non-Primitive
      Array
      Function
 
-# Qucik Reference
+# Quick Reference
 
 Data Type             Example
 
