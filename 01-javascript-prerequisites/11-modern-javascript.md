@@ -305,4 +305,285 @@ Ouput:
       
           Adult
 
-13.
+13. Ternary Syntax
+     
+     Remember: 
+         
+         condition ? valueIfTrue : valueIfFalse
+
+Example: 
+      
+      const isLoggedIn = true;
+
+      const message = 
+          isLoggedIn
+          ? "Welcome"
+          : "Please login";
+
+14. Ternary in React
+     
+     This is one of the most common uses.
+
+     function App() {
+        const isLoggedIn = true;
+        
+        return (
+            <div>
+              {isLoggedIn
+               ? <h1>Welcome~!</h1>
+               : <h1>Please Login</h1>
+              }
+            </div>
+        );
+     }
+
+     If:
+         
+         isLoggedIn = true
+    
+     React shows:
+         
+         Welcome!
+    
+     If:
+        
+         isLoggedIn = false
+    
+     React shows:
+         
+         Please Login
+
+15. Ternary for Buttons
+     
+     <buttons>
+        {isLoggedIn ? "Logout" : "Login"}
+     </button>
+
+     This produces"
+       
+       Logged in -> Logout
+       Logged Our -> Login
+    
+     Very common in React applications.
+
+16. Ternary with CSS Classes
+     
+     <div className={isActive ? "active" : "inactive"}>
+       Profile
+     </div>
+
+     if: 
+
+         isActive  = true
+    
+     then:
+
+         className="active"
+
+     Otherwise:
+
+         className="inactive"
+
+17. Nested Ternary
+
+     You technically can write:
+
+     const score = 80;
+
+     const grade = 
+        score >= 90 
+          ? "A"
+          : score >= 75
+            ? "B"
+            : "C";
+    
+     But avoid excessive nested ternaries because they become difficult to read.
+
+     Prefer:
+       
+         if / eles if / else
+
+     when the logic becomes complicated.
+
+18. Ternary vs &&
+     
+     React also commonly uses && for rendering something only when a condition  is true.
+
+Example: 
+      
+         {PisLoggedIn && <h1>Welcome</h1>}
+
+     If:
+        
+         isLoggedIn = true
+    
+     React displays:
+         
+         Welcome!
+    
+     If false, nothing is rendered.
+
+19. && vs Ternary
+     
+     Use && when you have:
+
+     show something
+     OR
+     show nothing
+
+Example:
+      
+      {isAdmin && <AdminPanel />}
+    
+     Use ternary when you have:
+
+     show A
+     OR
+     show B
+
+Example:
+     
+     {isLoggedIn ? <Dashboard /> : <Login />}
+
+20. Important React Pattern
+     
+     You will frequently see:
+
+     {user?.profile?.name ?? "Guest"}
+     
+     This means:
+
+     Does user exist?
+          ↓
+     Does profile exist?
+          ↓
+     Does name exist?
+          ↓
+     Yes → display name
+     No  → display "Guest"
+
+     This is an excellent pattern to understand before working with APIs.
+
+21. Combine Everything
+     
+     function UserProfile({ user }) {
+        const name = user?.profile?.name ?? "Guest";
+
+        return (
+            <div>
+               <h2>{name}</h2>
+
+               {user?.isLoggedIn
+                 ? <button>Logout</button>
+                 : <button>Login</button>
+               }
+            </div>
+        );
+     }
+
+     This small example uses:
+
+     ?.  -> optional chaining
+     ??  -> Default value
+     ?:  -> Conditional rendering
+
+22. Real API Example
+     
+     Imagine your API returns:
+
+     const response = {
+        user: {
+            profile: {
+                name: "Rohit"
+            }
+        }
+     };
+
+     You could safely display:
+
+     <h1>
+        {response?.user?.profile?.name ?? "Unknown User"}
+     </h1>
+
+     If the API returns:
+
+     {
+        user: null
+     }
+
+     You still get:
+         
+         Unknown User
+    
+     Instead of an error.
+
+23. Quick Refernce
+
+Syntax	  | Purpose
+?.	      | Safely access properties
+??	      | Default for null / undefined
+? :	      | Short if...else
+&&	      | Render when condition is true
+`	
+
+# Interview Questions
+
+Q1. What is optional chaining?
+     
+     Optional chaining ?. safely accesses a property without throwing an error when an intermediate value is null or undefined.
+
+         user?.profile?.name
+
+Q2. What does ?? do?
+     
+     It provides a fallback when the left-hand value is null or undefined.
+
+         const name = user.name ?? "Guest";
+
+Q3. Difference between || and ?? ?
+     
+     || treats all falsy values as a reason to use the fallback.
+     
+     ?? only falls back for:
+
+     null
+     undefined
+
+Q4. What is a ternary operator?
+     
+     A concise way to express if...else.
+        
+         condition  ? trueValue : falseValue
+
+Q5. How is ternary used in React?
+    
+     For conditional rendering:
+         
+         {isLoggedIn ? <Dashboard /> : <Login />}
+
+Q6. Difference between && and ternary in React?
+ 
+     {isAdmin && <AdminPanel />}
+
+     renders something only when the condition is true.
+
+         {isLoggedIn ? <Dashboard /> : <Login /> }
+    
+     Chooses between two UI elements.
+
+     * Memorize These
+         
+         Safe access
+             user?.profile?.name
+        
+         Default value
+             user?.name ?? "Guest"
+         
+         Two possible UI results
+             {isLoggedIn ? <Dashboard /> : <Login />}
+
+         Render only if true
+             {isAdmin && <AdminPanel />}
+
+     These four patterns will appear everywhere in React projects.
+
